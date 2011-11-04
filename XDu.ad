@@ -1,0 +1,19 @@
+!
+!  XDu Resources
+!
+!  I recommend the "-*-helvetica-bold-r-normal--14-*" font, but if
+!    you don't have it, or want your server default, then change it
+!    or comment it out respectively.
+!  Order choices: first, last, alpha, ralpha, size, rsize
+!  Color to taste.
+!
+!XDu*foreground:	yellow
+!XDu*background:	blue4
+!XDu*help*foreground:	green
+!XDu*help*background:	red4
+XDu*window.width:	600
+XDu*window.height:	480
+XDu.font:		-*-helvetica-bold-r-normal--14-*
+XDu.ncol:		5
+XDu.showsize:		true
+XDu.order:		first

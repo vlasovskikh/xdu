@@ -1,0 +1,12 @@
+XCOMM
+XCOMM  Imakefile for xdu : X11 display of du output
+XCOMM
+XCOMM  Phillip Dykstra, phil@arl.mil
+XCOMM
+        DEPLIBS = XawClientDepLibs
+LOCAL_LIBRARIES = XawClientLibs
+           SRCS = xdu.c xwin.c 
+           OBJS = xdu.o xwin.o
+
+ComplexProgramTarget(xdu)
+InstallAppDefaults(XDu)

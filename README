@@ -1,0 +1,94 @@
+================================================================
+XDU - Display the output of "du" in an X window
+================================================================
+
+XDU is a program for displaying a graphical tree of disk space
+utilization as reported by the UNIX utility "du".  You can
+navigate up and down in the tree, sort things, and print out
+information.  See the manual page for details.
+
+This program can be found by anonymous ftp at
+
+	ftp.arl.mil:pub/xdu-3.0.tar.Z
+
+and should appear in the X11R6 contrib files.
+
+================================================================
+Compilation
+================================================================
+
+Use "xmkmf" to build a Makefile from the Imakefile.
+Then "make", "make install", "make install.man".
+But if for some reason you can't do that, try:
+
+	cc -o xdu xdu.c xwin.c -lXaw -lXt -lXext -lX11
+
+See the XDu.ad file if e.g. you have problems with
+  the selected font.
+
+This release was tested against X11R6 patch level 1 on an
+SGI running Irix 5.2.  It has been tested against X11R5 on
+SunOS 4.1.3, SunOS 5.2 (Solaris), SGI Irix 4.0.5, Gould
+UTX 2.1.
+
+================================================================
+Revision History
+================================================================
+
+Version 3.0	5 Jun 94
+  X11R6 contrib release
+  Popup help window
+  Now uses Athena widgets, but no menus or buttons yet
+
+Version 2.1	22 Jul 93
+  Fixed a bug in the sorting code where traversal back up a
+    sorted tree could land you in the wrong parent directory.
+
+Version 2.0	21 Jul 93
+  Added sorting.
+  Command line options.
+  More resources.
+  Better redraw behavior.
+  Bug fixes (to handle trailing slashes and directories
+     with no or zero size information).
+
+Version 1.1	5 Oct 91
+  Added resource control
+  Display of size information
+  More accurate label positioning
+
+Version 1.0	4 Sep 91
+  First public release
+
+================================================================
+Remaining Bug?
+================================================================
+
+  On startup on a Sun (but not on an SGI), keyboard input
+  may not be received by the application until you move the
+  mouse out of and back into the window.  Button presses are
+  fine.  Does anyone know what's going on there?
+  Mark Evans pointed out a fix - now in the BUG section of
+  the manual page, but I would still like to hear how/why
+  this happens.
+
+================================================================
+Acknowledgements
+================================================================
+Thanks for bug reports and code fixes from:
+
+Casey Leedom <casey@gauss.llnl.gov>
+Stephen Gildea <gildea@expo.lcs.mit.edu>
+Nelson Minar <nelson@reed.edu>
+Don Tiessen <dtiessen@silver.cs.umanitoba.ca>
+Gerry.Tomlinson@newcastle.ac.uk
+Mark Evans <mre1@itri.bton.ac.uk>
+Juha Takala <jta@piuha.sah.vtt.fi>
+
+And the many others who told me what they thought about it.
+
+Send any bugs/comments to:
+
+Phil Dykstra
+<phil@arl.mil>
+http://info.arl.mil/~phil/

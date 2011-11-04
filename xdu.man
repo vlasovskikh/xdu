@@ -1,0 +1,204 @@
+.TH XDU 1 X11
+.SH NAME
+xdu \- display the output of "du" in an X window
+.SH SYNOPSIS
+.B du \|| xdu [options]
+.SH DESCRIPTION
+.I Xdu
+is a program for displaying a graphical tree of disk space
+utilization as reported by the UNIX utility "du".  The
+user can navigate through the tree structure and change
+the order of the displayed information.  The window
+is divided up into several columns, each of which is one level
+deeper in the directory hierarchy (from left to right).  Boxes
+are drawn for each directory.  The amount of vertical space
+occupied by each box is directly proportional to the amount of
+disk space consumed by it and all of its children.  The name of
+each directory and the amount of data are displayed provided
+that there is enough space within its box.  Any space at the
+"bottom" of a box not covered by its children to the right
+represents the space consumed by files \fIin\fR that directory
+(as opposed to space from its children).
+.PP
+There are several command line options available.  Equivalent
+resources (if any) are shown with each option.
+.TP
+.B \+s
+(.showsize: true)
+display sizes (the default).
+.TP
+.B \-s
+(.showsize: false)
+don't display sizes.
+.TP
+.BI \-c " num"
+display \fInum\fR columns.
+.TP
+.B \-a
+(.order: alpha)
+sorts display alphabetically.
+.TP
+.B \-ra
+(.order: ralpha)
+sorts display reverse alphabetically.
+.TP
+.B \-n
+(.order: size)
+sorts display numerically (largest first).
+.TP
+.B \-rn
+(.order: rsize)
+sorts display reverse numerically (smallest first).
+.TP
+.BI \-fg " color"
+(.foregound)
+determines the color of the text and lines.
+.TP
+.BI \-bg " color"
+(.background)
+determines the color of the background.
+.TP
+.B \-rv
+reverse video (for monochrome displays)
+.PP
+In addition to these the usual toolkit options such as
+\-rv, \-font, \-display, \-geometry, are supported.
+.SH MOUSE ACTIONS
+The user can move up or down the tree by clicking the left mouse on
+a directory box.  If the left most box is selected, the display will
+move up one level (assuming you are not already at the root).  If any
+other box is selected, it will be placed against the left edge of the
+window and the display will be rescaled appropriately.
+At any time the middle mouse will bring you back to the root.
+Clicking the right mouse will exit the program.
+.SH KEYSTROKES
+Several keystroke commands are supported.  Note that all sorting happens
+from the current root node down, so it is possible to sort one subtree
+differently than another by clicking into it, doing a sort, and going
+back up to the parent.
+.TP
+.B 1-9,0
+sets the number of columns in the display (0 = 10).
+.TP
+.B a
+alphabetical sort.
+.TP
+.B n
+numerical sort (largest first).
+.TP
+.B f
+first-in-first-out sort (this is the order the
+data was read into the program).
+.TP
+.B l
+last-in-first-out sort.
+.TP
+.B r
+reverse sense of sort.
+.TP
+.B s
+toggle size display.
+.TP
+.B h
+display a popup help window.
+.TP
+.B i
+display information about the current root node to standard out.
+The first line shows the path within the tree, the total size
+from this node on down, and the precentage that total represents
+of all of the data given to \fIxdu\fR.  Subsequent lines show the
+size and name information for all children of this node in the
+order they are currently sorted in.  This allows tiny directories
+to be seen that otherwise could not be labled on the display,
+and also allows for cutting and pasting of the information.
+.TP
+.B /
+goto the root.
+.TP
+.B q
+(or Escape)
+exit the program.
+.SH ACTIONS
+All mouse and keyboard events trigger actions so they can all
+be rebound by translations to suit the individual.  The action
+functions are:
+.TP
+.B reset()
+goes to the root node.
+.TP
+.B goto()
+moves down into the directory currently under the mouse
+(and is thus probably only useful bound to a mouse button).
+.TP
+.B quit()
+exits the program.
+.TP
+.B reorder(type)
+sorts the display from the current root node down according to
+one of: alpha, ralpha (reverse alphabetical), size (largest to
+smallest), rsize (smallest to largest), first (as originally read
+in), last (opposite of original data), reverse (reverse whatever
+sort mode is currently selected).
+.TP
+.B size()
+toggles size display on/off
+.TP
+.B ncol(num)
+sets the number of columns to num.
+.TP
+.B info()
+displays directory information as described in the KEYBOARD section.
+.TP
+.B help()
+displays a popup help window.
+.PP
+As an example of rebinding these, you could put the following
+in your resources file:
+.sp
+.nf
+XDu*translations: #override\\n\\
+          <Key>X: reorder(reverse)\\n\\
+      <Btn3Down>: info()
+.fi
+.sp
+to make the 'x' key reverse the current sort order and the right
+mouse button print the directory information message.
+.SH RESOURCES
+The following resources are supported with some sample values.
+.PP
+.nf
+XDu*foreground:		yellow
+XDu*background:		blue4
+XDu*window.width:	600
+XDu*window.height:	480
+XDu*help*foreground:	green
+XDu*help*background:	red4
+XDu.ncol:		5
+XDu.font:		-*-helvetica-bold-r-normal--14-*
+XDu.showsize:		False
+XDu.order:		size
+.fi
+.SH EXAMPLE
+.I
+cd /usr/src
+.br
+.I
+du > /tmp/du.out
+.br
+.I
+xdu \-n /tmp/du.out
+.SH BUGS
+On some machines keyboard input may not be accepted by xdu until
+the mouse is moved out of and back into the window.  I have been
+told that putting the following in your resources file may fix
+this.
+.sp
+.nf
+<window manager name>.FocusLenience: True
+.fi
+.SH "SEE ALSO"
+du(1)
+.SH AUTHOR
+Phillip C. Dykstra
+.br
+<phil@arl.army.mil>
